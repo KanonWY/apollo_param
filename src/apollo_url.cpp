@@ -56,15 +56,17 @@ std::string addConfigUrl(const std::string &portal_address,
 }
 
 //URL ： http://{portal_address}/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}?operator={operator}
+// 注意：这里的key应该拼接到url中，不能添加到请求参数中
 std::string deleteConfigUrl(const std::string &portal_address,
                             const std::string &env,
                             const std::string &appId,
                             const std::string &clusterName,
-                            const std::string &ns)
+                            const std::string &ns,
+                            const std::string &key)
 {
     std::ostringstream ss;
     ss << portal_address << "/openapi/v1/envs/" << env << "/apps/" << appId
-       << "/clusters/" << clusterName << "/namespaces/" << ns << "/items";
+       << "/clusters/" << clusterName << "/namespaces/" << ns << "/items/" << key;
     SPDLOG_INFO("deleteConfigUrl = {}", ss.str());
     return ss.str();
 }
@@ -93,7 +95,7 @@ std::string publishConfigUrl(const std::string &portal_address,
 {
     std::ostringstream ss;
     ss << portal_address << "/openapi/v1/envs/" << env << "/apps/" << appId
-       << "/clusters/" << clusterName << "/namespaces/" << ns << "releases";
+       << "/clusters/" << clusterName << "/namespaces/" << ns << "/releases";
     SPDLOG_INFO("publishConfigUrl = {}", ss.str());
     return ss.str();
 }

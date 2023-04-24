@@ -70,6 +70,7 @@ web::http::http_request BuildDeleteConfigReq(const std::string &token,
     builder.append_query(U("key"), key);
     builder.append_query(U("operator"), op_person);
     request.set_request_uri(builder.to_string());
+    SPDLOG_INFO("_________________> {}", request.request_uri().to_string());
     request.headers() = headers;
     return request;
 }

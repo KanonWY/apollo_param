@@ -57,16 +57,24 @@ bool apollo_open_base_api::createNewNamespace(const std::string &portal_address,
     }
 }
 
-std::string apollo_open_base_api::getOneNamespaceInfo(const open_api_param &param)
+NamespaceInfo apollo_open_base_api::getOneNamespaceInfo(const open_api_param &param)
 {
     auto response = execHttpRequest(getOneNamespaceInfoUrl(param.portal_address, param.env, param.appid, param.cluster, param.ns),
                                     BuildGetOneNamespaceInfoReq(param.token));
+    NamespaceInfo res;
     if (response.status_code() == web::http::status_codes::OK) {
-        auto str = response.extract_json().get().serialize().c_str();
-        return str;
+        auto json_data_from_server = response.extract_json().get();
+        YAML::Node node = YAML::Load(json_data_from_server.serialize().c_str());
+        if (node.Type() != YAML::NodeType::Map) {
+            SPDLOG_ERROR("getOneNamespaceInfo return json is not Map!");
+            return res;
+        } else {
+            res = node.as<NamespaceInfo>();
+            return res;
+        }
     } else {
         SPDLOG_ERROR("createNewNamespace error: {}", response.status_code());
-        return {};
+        return res;
     }
 }
 
@@ -81,7 +89,7 @@ bool apollo_open_base_api::addConfig(const open_api_param &param,
     if (response.status_code() == web::http::status_codes::OK) {
         return true;
     } else {
-        SPDLOG_ERROR("addConfig error: {}", response.status_code());
+        SPDLOG_ERROR("addConfig error: {}\n{}", response.status_code(), response.extract_json().get().serialize().c_str());
         return false;
     }
 }
@@ -89,12 +97,13 @@ bool apollo_open_base_api::deleteConfig(const open_api_param &param,
                                         const std::string &key,
                                         const std::string &op_person)
 {
-    auto response = execHttpRequest(deleteConfigUrl(param.portal_address, param.env, param.appid, param.cluster, param.ns),
+    auto response = execHttpRequest(deleteConfigUrl(param.portal_address, param.env, param.appid, param.cluster, param.ns, key),
                                     BuildDeleteConfigReq(param.token, key, op_person));
     if (response.status_code() == web::http::status_codes::OK) {
+        SPDLOG_INFO("{}\n{}", response.status_code(), response.extract_json().get().serialize().c_str());
         return true;
     } else {
-        SPDLOG_ERROR("deleteConfig error: {}", response.status_code());
+        SPDLOG_ERROR("deleteConfig error: {}\n{}", response.status_code(), response.extract_json().get().serialize().c_str());
         return false;
     }
 }
@@ -107,13 +116,13 @@ bool apollo_open_base_api::modifyConfig(const open_api_param &param,
                                         const std::string &comment,
                                         const std::string &dataChangeCreatedBy)
 {
-    auto response = execHttpRequest(modifyConfigUrl(param.portal_address, param.env, param.env, param.cluster, param.ns, key),
+    auto response = execHttpRequest(modifyConfigUrl(param.portal_address, param.env, param.appid, param.cluster, param.ns, key),
                                     BuildModifyConfigReq(param.token, key, value, createIfNotExists, dataChangeCreatedBy, comment, dataChangeCreatedBy));
 
     if (response.status_code() == web::http::status_codes::OK) {
         return true;
     } else {
-        SPDLOG_ERROR("modifyConfig error: {}", response.status_code());
+        SPDLOG_ERROR("modifyConfig error: {}\n{}", response.status_code(), response.extract_json().get().serialize().c_str());
         return false;
     }
 }

@@ -33,7 +33,7 @@ public:
 
 struct open_api_param
 {
-    std::string portal_address{"http://127.0.0.1:8070"};
+    std::string portal_address{"http://localhost:8070"};
     std::string env{"DEV"};
     std::string appid{};
     std::string cluster{"default"};
@@ -86,7 +86,7 @@ public:
      * @param param
      * @return
      */
-    static std::string getOneNamespaceInfo(const open_api_param &param);
+    static NamespaceInfo getOneNamespaceInfo(const open_api_param &param);
 
     /**
      * @brief 新增一个配置

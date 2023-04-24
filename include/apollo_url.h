@@ -114,7 +114,8 @@ std::string deleteConfigUrl(const std::string &portal_address,
                             const std::string &env,
                             const std::string &appId,
                             const std::string &clusterName,
-                            const std::string &ns);
+                            const std::string &ns,
+                            const std::string &key);
 
 /**
  * @brief 修改配置的URL
