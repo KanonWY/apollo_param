@@ -1,0 +1,9 @@
+#ifndef APOLLO_CPP_CLIENT_APOLLO_RESPONSE_H
+#define APOLLO_CPP_CLIENT_APOLLO_RESPONSE_H
+
+namespace apollo_param
+{
+
+}
+
+#endif //APOLLO_CPP_CLIENT_APOLLO_RESPONSE_H
