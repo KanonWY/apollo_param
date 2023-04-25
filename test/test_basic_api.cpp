@@ -117,7 +117,7 @@ int Test_modifyConfig()
     param.token = test_token;
     param.appid = appid;
     param.ns = "application";
-    auto res = apollo_open_base_api::modifyConfig(param, "key2", "value2;", false, "apollo", "修改key1", "apollo");
+    auto res = apollo_open_base_api::modifyConfig(param, "key23", "value3lpdlpa3", true, "apollo", "修改key1", "apollo");
 
     return 0;
 };
@@ -138,6 +138,6 @@ int Test_publishConfig()
 
 int main()
 {
-    Test_publishConfig();
+    Test_modifyConfig();
     return 0;
 }

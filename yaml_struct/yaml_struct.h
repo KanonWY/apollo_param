@@ -12,6 +12,21 @@
 #include <yaml-cpp/yaml.h>
 #include "yaml_struct/visit_struct/visit_struct.hpp"
 
+#define YAML_NORMAL_TEMP(S) \
+    template <>             \
+    const char *yaml_type_name<S>::value = #S;
+
+namespace apollo_param
+{
+
+template <typename T>
+struct yaml_type_name
+{
+    static const char *value;
+};
+
+} // namespace apollo_param
+
 namespace yaml_cpp_struct
 {
 

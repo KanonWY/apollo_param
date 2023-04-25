@@ -73,7 +73,7 @@ NamespaceInfo apollo_open_base_api::getOneNamespaceInfo(const open_api_param &pa
             return res;
         }
     } else {
-        SPDLOG_ERROR("createNewNamespace error: {}", response.status_code());
+        SPDLOG_ERROR("getOneNamespaceInfo error: {}", response.status_code());
         return res;
     }
 }

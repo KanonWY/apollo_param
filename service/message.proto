@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package apollo_param;
+
+enum OPERATOR
+{
+  UNKNOW = 0;
+  GET = 1;
+  SET = 2;
+}
+
+message ParamRequest {
+  string appid = 1;
+  string ns = 2;
+  OPERATOR op = 3;
+  string key = 4;
+  string value = 5;
+  string struct_string = 6;
+}
+
+message ParamResponse {
+  bool success = 1;
+  string value = 2;
+}
+
+service ParamService {
+  rpc paramRequest(ParamRequest) returns (ParamResponse);
+};

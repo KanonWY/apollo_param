@@ -62,18 +62,25 @@ struct apolloConfig
 
 struct apolloOpenConfig
 {
-    std::string address_{"http://localhost:8070"};
+    std::string address_{"http://localhost:8080"};
+    std::string portal_address_{"http://localhost:8070"};
     std::string appid_{"SampleApp"};
     std::string cluster_{"default"};
     std::string env_{"DEV"};
     std::vector<std::string> namespace_;
     bool is_backup_config_ = false;
     std::string token_{};
+    short port_{};
+    std::string server_address_;
 
     apolloOpenConfig() = default;
 
     //method chain
     SET_METHOD_CHAIN_2(address_)
+
+    SET_METHOD_CHAIN_2(portal_address_)
+
+    SET_METHOD_CHAIN_2(server_address_)
 
     SET_METHOD_CHAIN_2(appid_)
 
@@ -98,6 +105,12 @@ struct apolloOpenConfig
     inline apolloOpenConfig &SetBackUp(bool flag)
     {
         this->is_backup_config_ = flag;
+        return *this;
+    }
+
+    inline apolloOpenConfig &SetPort(short v)
+    {
+        this->port_ = v;
         return *this;
     }
 };

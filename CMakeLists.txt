@@ -78,11 +78,17 @@ if (GEN_SHARED_LIB)
             src/apollo_request.cpp
             src/apollo_openapi_client.cpp
             src/apollo_response.cpp
+            src/apollo_yaml_tmp.cpp
             )
     target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest spdlog yaml-cpp)
     target_include_directories(apollo_client PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 endif ()
 
 add_subdirectory(test)
+
+
+option(USE_SRPC "lplp" ON)
+
+add_subdirectory(service)
 
 

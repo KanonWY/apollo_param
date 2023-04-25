@@ -1,2 +1,5 @@
 build/
 .idea/
+service/message.srpc.h
+service/server.pb_skeleton.cc
+service/client.pb_skeleton.cc

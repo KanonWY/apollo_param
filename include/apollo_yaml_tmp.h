@@ -19,8 +19,7 @@ struct NamespaceInfo
     std::string dataChangeLastModifiedTime;
 };
 
-YCS_ADD_STRUCT(NamespaceInfo, appId, clusterName, namespaceName,
-               comment, format, isPublic, items, dataChangeCreatedBy, dataChangeLastModifiedBy, dataChangeCreatedTime, dataChangeLastModifiedTime)
+YCS_ADD_STRUCT(NamespaceInfo, appId, clusterName, namespaceName, comment, format, isPublic, items, dataChangeCreatedBy, dataChangeLastModifiedBy, dataChangeCreatedTime, dataChangeLastModifiedTime)
 
 struct apolloErrMsg
 {
@@ -31,6 +30,22 @@ struct apolloErrMsg
 };
 
 YCS_ADD_STRUCT(apolloErrMsg, exception, message, status, timestamp)
+
+struct NotifyInfo
+{
+    std::string namespaceName;
+    int notificationId;
+};
+
+YCS_ADD_STRUCT(NotifyInfo, namespaceName, notificationId)
+
+struct TestConfig
+{
+    std::string Name;
+    int a;
+};
+
+YCS_ADD_STRUCT(TestConfig, Name, a)
 
 //namespace YAML
 //{
