@@ -80,7 +80,7 @@ if (GEN_SHARED_LIB)
             src/apollo_response.cpp
             src/apollo_yaml_tmp.cpp
             )
-    target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest yaml-cpp)
+    target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest yaml-cpp fmt)
     target_include_directories(apollo_client PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 endif ()
 
