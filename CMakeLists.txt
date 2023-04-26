@@ -23,6 +23,13 @@ else ()
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fuse-ld=gold")
 endif ()
 
+# check arch
+if(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "aarch64")
+    set(IS_ARM TRUE)
+elseif(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64")
+    set(IS_ARM FALSE)
+endif()
+
 
 project(Apollo_CPP_Client LANGUAGES CXX C)
 
@@ -80,7 +87,11 @@ if (GEN_SHARED_LIB)
             src/apollo_response.cpp
             src/apollo_yaml_tmp.cpp
             )
-    target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest yaml-cpp fmt)
+    if(IS_ARM)
+        target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest yaml-cpp fmt)
+    else()
+        target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest yaml-cpp)
+    endif()
     target_include_directories(apollo_client PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 endif ()
 
