@@ -1,12 +1,13 @@
 find_package(OpenSSL REQUIRED)
 find_package(Protobuf REQUIRED)
 find_package(srpc REQUIRED CONFIG
-        HINTS "/home/kanon/Project/srpc")
+    HINTS "/home/parallels/Code/srpc")
 if (srpc_FOUND)
     message(STATUS "---> srpc Found")
 endif ()
 
-find_package(Workflow REQUIRED CONFIG HINTS "/home/kanon/Project/srpc/workflow")
+find_package(Workflow REQUIRED CONFIG HINTS "/home/parallels/Code/srpc/workflow")
+#find_package(Workflow REQUIRED CONFIG HINTS "/home/kanon/Project/srpc/workflow")
 if (Workflow_FOUND)
     message(STATUS "---> WorkFlow FOUND")
 endif ()
@@ -44,9 +45,8 @@ target_link_libraries(apollo_param ${SRPC_LIB} apollo_client)
 add_dependencies(apollo_param TURORIAL_GEN)
 
 
-find_package(Boost REQUIRED CONFIG)
 add_executable(test_srpc_service test/test_srpc_service.cpp)
-target_link_libraries(test_srpc_service apollo_param ${Boost_LIBRARIES})
+target_link_libraries(test_srpc_service apollo_param)
 
 
 add_executable(test_srpc_client test/test_srpc_client.cpp)

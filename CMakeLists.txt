@@ -39,7 +39,7 @@ set(C_SOURCE_EXT "*.c")
 
 #  compiler flag
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_FILE_OFFSET_BITS=64 -D__STDC_FORMAT_MACROS")
 # speed compile
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe")
@@ -80,15 +80,12 @@ if (GEN_SHARED_LIB)
             src/apollo_response.cpp
             src/apollo_yaml_tmp.cpp
             )
-    target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest spdlog yaml-cpp)
+    target_link_libraries(apollo_client PUBLIC cpprestsdk::cpprest yaml-cpp)
     target_include_directories(apollo_client PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 endif ()
 
 add_subdirectory(test)
 
-
-option(USE_SRPC "lplp" ON)
-
-add_subdirectory(service)
+#add_subdirectory(service)
 
 
